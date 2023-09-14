@@ -1,3 +1,5 @@
+// ---- async await contained in a function asyncWrapper ---- //
+
 const asyncWrapper = (fn) => {
     return async (req, res,next) => {
         try{

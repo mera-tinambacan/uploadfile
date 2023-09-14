@@ -1,10 +1,11 @@
-const upload  = require("../middleware/multer");
 const express = require("express");
-
-const { getItems, addItem, downloadFile } = require("../controllers/items");
-
 const router = express.Router();
 
-router.route("/").get(getItems).post(upload.single("file"), addItem);
+const uploadResume  = require("../middleware/multer");
+const uploadCert  = require("../middleware/multer");
+const { getResume, addResume, getCert, addCert} = require("../controllers/items");
+
+router.route("/resume").get(getResume).post(uploadResume.single("file"), addResume);
+router.route("/cert").get(getCert).post(uploadCert.single("file"), addCert);
 
 module.exports = router;

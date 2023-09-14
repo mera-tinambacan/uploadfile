@@ -1,21 +1,22 @@
+// ------ Setup Dependencies ------ //
 const express = require("express");
-const connectDB = require("./db/connect");
-
-const app = express();
 const dotenv = require("dotenv").config();
 const cors = require("cors");
+const connectDB = require("./db/connect");
+
+// ------ Create app using express() ------ //
+const app = express();
 
 const port = process.env.PORT || 3000;
 
+//------ Middlewares ------ //
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
+//------ Allow access to different routes ------ //
 const itemsRouter = require("./routes/items");
-app.use("/api/v1/items", itemsRouter);
+app.use("/uploads", itemsRouter);
+
 
 const start = async () => {
   try {

@@ -1,17 +1,27 @@
 const multer = require("multer");
-//configure how the files are stored
-const storage = multer.diskStorage({
+
+// ----- configure how the files are stored ----- //
+const storageResume = multer.diskStorage({
     destination: function (req, file, cb) {
-        //where to store the file
-        cb(null, "uploads/");
+        cb(null, "uploads/resume");
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
     },
 });
 
+const storageCert = multer.diskStorage({
+    destination: function (req, file, cb) {
+        //where to store the file
+        cb(null, "uploads/certificates");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    },
+});
+
+// ----- Accept pdf file type only ----- //
 const fileFilter = (req, file, cb) => {
-    //reject file if it's not pdf
     if (
         file.mimetype === "application/pdf"
     ) {
@@ -21,12 +31,23 @@ const fileFilter = (req, file, cb) => {
         }
 };
 
-const upload = multer({
-    storage: storage,
+const uploadResume = multer({
+    storage: storageResume,
     limits: {
         fileSize: 1024 * 1024,
     },
     fileFilter: fileFilter,
 });
 
-module.exports = upload;
+const uploadCert = multer({
+    storage: storageCert,
+    limits: {
+        fileSize: 1024 * 1024,
+    },
+    fileFilter: fileFilter,
+});
+
+module.exports = uploadResume;
+module.exports = uploadCert;
+
+
